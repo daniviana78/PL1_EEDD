@@ -1,7 +1,11 @@
+#include <iostream>
+
 #ifndef PIZZERIA_H_INCLUDED
 #define PIZZERIA_H_INCLUDED
 
-#endif // PIZZERIA_H_INCLUDED
+#define PROB_PERSONALIZACION 20
+
+using namespace std;
 
 struct pedido
 {
@@ -15,3 +19,8 @@ struct pedido
     string estado;
 
 };
+
+pedido generarPedido();
+
+#endif // PIZZERIA_H_INCLUDED
+

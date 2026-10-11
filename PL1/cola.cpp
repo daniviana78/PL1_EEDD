@@ -1,37 +1,8 @@
-
+#include "cola.h"
 #include <iostream>
 
 using namespace std;
 
-class Nodo
-{
-private:
-    int valor;
-    Nodo *siguiente;
-    friend class Cola;
-public:
-// Declaración del constructor del Nodo
-    Nodo(int v, Nodo *sig = NULL)
-    {
-        valor = v;
-        siguiente = sig;
-    }
-};
-typedef Nodo *pNodo;
-
-class Cola
-{
-private:
-    pNodo primero; // Puntero al primer elemento
-    pNodo ultimo; // Puntero al último elemento
-public:
-    Cola(); // Declaración de Constructor y Destructor
-    ~Cola();
-    void encolar(int v); // Declaración de Operaciones Modificadoras
-    void desencolar();
-    int valorFrente(); // Declaración de Operaciones Observadoras
-    bool esVacia();
-};
 
 //Constructor de la Cola
 Cola::Cola() : primero(NULL), ultimo(NULL) {}
@@ -45,13 +16,11 @@ Cola::~Cola()
     }
 }
 
-
-
 //Insertar elemento
-void Cola::encolar(int v)
+void Cola::encolar(pedido p)
 {
     pNodo nuevo; //Var aux para manipular el nuevo nodo
-    nuevo = new Nodo(v); //Se crea un nodo nuevo
+    nuevo = new Nodo(p); //Se crea un nodo nuevo
 // El antiguo último apunta al nuevo
     if (ultimo != NULL) ultimo->siguiente = nuevo;
     ultimo = nuevo; // El nuevo pasa a ser el último
@@ -72,12 +41,13 @@ void Cola::desencolar()
 }
 
 //Valor del primer elemento
-int Cola::valorFrente()
+pedido Cola::valorFrente()
 {
     if (primero == NULL) //Otra forma de comprobar si la cola está vacía
     {
         cout << "Error: Cola vacia al consultar el frente." << endl;
-        return 0;
+        pedido vacio;
+        return vacio;
     }
     return primero->valor;
 }
