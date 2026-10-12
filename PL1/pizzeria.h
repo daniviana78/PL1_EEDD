@@ -22,7 +22,7 @@ struct pedido
 
 class Cola;
 
-pedido generarPedido();
+pedido generarPedido(int contador_pedidos);
 void mostrarPedidos(Cola &recibidos);
 
 #endif // PIZZERIA_H_INCLUDED
