@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <iomanip>
 
 #include "pizzeria.h"
 #include "cola.h"
@@ -35,26 +36,30 @@ void mostrarPedidos(Cola &recibidos) {
     Cola aux;
 
     cout << "\n=== RECIBIDOS ===" << endl;
-    cout << "Pedido\tCliente\tPizza\t\tTamano\tZona\tPers\tEstado" << endl;
+
+
+    cout << left
+         << setw(10) << "Pedido"
+         << setw(10) << "Cliente"
+         << setw(16) << "Pizza"
+         << setw(10) << "Tamano"
+         << setw(10) << "Zona"
+         << setw(8)  << "Pers"
+         << setw(12) << "Estado" << endl;
 
 
     while (!recibidos.esVacia()) {
         pedido p = recibidos.valorFrente();
         recibidos.desencolar();
 
-        cout << p.id_pedido << "\t"
-             << p.id_cliente << "\t"
-             << p.tipo_pizza << "\t";
-
-
-        if (p.tipo_pizza == "Romana" || p.tipo_pizza == "Vegetal") {
-            cout << "\t";
-        }
-
-        cout << p.tamano << "\t"
-             << p.zona_reparto << "\t"
-             << (p.personalizada ? "Si" : "No") << "\t"
-             << p.estado << endl;
+        cout << left
+             << setw(10) << p.id_pedido
+             << setw(10) << p.id_cliente
+             << setw(16) << p.tipo_pizza
+             << setw(10) << p.tamano
+             << setw(10) << p.zona_reparto
+             << setw(8)  << (p.personalizada ? "Si" : "No")
+             << setw(12) << p.estado << endl;
 
         aux.encolar(p);
     }
