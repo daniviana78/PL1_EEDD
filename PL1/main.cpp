@@ -12,44 +12,47 @@ int main()
 {
     Cola cola_pedidos;
     srand(time(NULL));
-
-    cout << "=== MENU ===" << endl;
-    cout << "Elija alguna de las siguientes opciones: " << endl;
-    cout << "1- Generar N pedidos." << endl;
-    cout << "2- Mostrar pedidos realizados." << endl;
-    cout << "0- Salir." << endl;
-
     int respuesta;
-    cin >> respuesta;
+    int contador_pedidos=0;
 
-    switch(respuesta){
 
-    case 1:
-        {
+    do{
+        cout << "=== MENU ===" << endl;
+        cout << "Elija alguna de las siguientes opciones: " << endl;
+        cout << "1- Generar N pedidos." << endl;
+        cout << "2- Mostrar pedidos realizados." << endl;
+        cout << "0- Salir." << endl;
 
-            cout << "Introduzca el numero de pedidos que quiere generar: " << endl;
-            int n_pedidos;
-            cin >> n_pedidos;
+        cin >> respuesta;
 
-            for (int i=0; i<n_pedidos; i++){
-                pedido nuevo_pedido= generarPedido();
-                cola_pedidos.encolar(nuevo_pedido);
+        switch(respuesta){
+
+        case 1:
+            {
+
+                cout << "Introduzca el numero de pedidos que quiere generar: " << endl;
+                int n_pedidos;
+                cin >> n_pedidos;
+
+                for (int i=0; i<n_pedidos; i++){
+                    contador_pedidos++;
+                    pedido nuevo_pedido= generarPedido(contador_pedidos);
+                    cola_pedidos.encolar(nuevo_pedido);
+                }
+                break;
             }
-            break;
-        }
-    case 2:
-        {
-         mostrarPedidos(cola_pedidos);
-         break;
-        }
-    case 0:
-        {
-            cout << "Saliendo" << endl;
-            break;
-        }
+        case 2:
+            {
+             mostrarPedidos(cola_pedidos);
+             break;
+            }
+        case 0:
+            {
+                break;
+            }
 
-    }
-    while (respuesta != 0);
+        }
+    }while (respuesta != 0);
 
     return 0;
 }

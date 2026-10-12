@@ -7,15 +7,13 @@
 
 using namespace std;
 
-pedido generarPedido(){
+pedido generarPedido(int contador_pedidos){
 
     pedido pedido_generado= {" ", 0, " ", " ", " ", false, " "};
-    int contador_pedidos= 0;
     string tipos_pizza[]= {"Margarita", "Barbacoa", "Vegetal", "Hawaiana", "Romana", "Cuatro quesos"};
     string tamanos_pizza[]= {"Mediana", "Grande"};
     string zonas_reparto[]= {"Norte", "Sur", "Este","Oeste"};
 
-    contador_pedidos++;
     pedido_generado.id_pedido= "P" + to_string(10000 + contador_pedidos);
     pedido_generado.id_cliente= 100 + (rand() % 900);
     pedido_generado.tipo_pizza= tipos_pizza[rand()%6];
