@@ -38,28 +38,29 @@ void mostrarPedidos(Cola &recibidos) {
     cout << "\n=== RECIBIDOS ===" << endl;
 
 
-    cout << left
-         << setw(10) << "Pedido"
-         << setw(10) << "Cliente"
-         << setw(16) << "Pizza"
-         << setw(10) << "Tamano"
-         << setw(10) << "Zona"
-         << setw(8)  << "Pers"
-         << setw(12) << "Estado" << endl;
+    cout << setw(7) << "Pedido" << " | "
+         << setw(7) << "Cliente" << " | "
+         << setw(13) << "Pizza" << " | "
+         << setw(7) << "Tamano" << " | "
+         << setw(5) << "Zona" << " | "
+         << setw(4) << "Pers" << " | "
+         << "Estado" << endl;
+
+
+    cout << "-----------------------------------------------------------------" << endl;
 
 
     while (!recibidos.esVacia()) {
         pedido p = recibidos.valorFrente();
         recibidos.desencolar();
 
-        cout << left
-             << setw(10) << p.id_pedido
-             << setw(10) << p.id_cliente
-             << setw(16) << p.tipo_pizza
-             << setw(10) << p.tamano
-             << setw(10) << p.zona_reparto
-             << setw(8)  << (p.personalizada ? "Si" : "No")
-             << setw(12) << p.estado << endl;
+        cout << setw(7) << p.id_pedido << " | "
+             << setw(7) << p.id_cliente << " | "
+             << setw(13) << p.tipo_pizza << " | "
+             << setw(7) << p.tamano << " | "
+             << setw(5) << p.zona_reparto << " | "
+             << setw(4) << (p.personalizada ? "Si" : "No") << " | "
+             << p.estado << endl;
 
         aux.encolar(p);
     }
