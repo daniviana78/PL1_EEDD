@@ -28,5 +28,45 @@ pedido generarPedido(){
     return pedido_generado;
 }
 
+void mostrarPedidos(Cola &recibidos) {
+    if (recibidos.esVacia()) {
+        cout << "\nNo hay pedidos en la cola de recibidos.\n" << endl;
+        return;
+    }
+
+    Cola aux;
+
+    cout << "\n=== RECIBIDOS ===" << endl;
+    cout << "Pedido\tCliente\tPizza\t\tTamano\tZona\tPers\tEstado" << endl;
+
+
+    while (!recibidos.esVacia()) {
+        pedido p = recibidos.valorFrente();
+        recibidos.desencolar();
+
+        cout << p.id_pedido << "\t"
+             << p.id_cliente << "\t"
+             << p.tipo_pizza << "\t";
+
+
+        if (p.tipo_pizza == "Romana" || p.tipo_pizza == "Vegetal") {
+            cout << "\t";
+        }
+
+        cout << p.tamano << "\t"
+             << p.zona_reparto << "\t"
+             << (p.personalizada ? "Si" : "No") << "\t"
+             << p.estado << endl;
+
+        aux.encolar(p);
+    }
+
+
+    while (!aux.esVacia()) {
+        recibidos.encolar(aux.valorFrente());
+        aux.desencolar();
+    }
+}
+
 
 
