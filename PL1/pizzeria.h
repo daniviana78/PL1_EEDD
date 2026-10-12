@@ -20,7 +20,10 @@ struct pedido
 
 };
 
+class Cola;
+
 pedido generarPedido();
+void mostrarPedidos(Cola &recibidos);
 
 #endif // PIZZERIA_H_INCLUDED
 

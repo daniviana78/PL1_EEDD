@@ -33,16 +33,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="cola.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="cola.cpp" />
 		<Unit filename="cola.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
-		<Unit filename="pizzeria.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="pizzeria.cpp" />
 		<Unit filename="pizzeria.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>

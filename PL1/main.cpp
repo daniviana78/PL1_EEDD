@@ -35,11 +35,21 @@ int main()
                 pedido nuevo_pedido= generarPedido();
                 cola_pedidos.encolar(nuevo_pedido);
             }
-
+            break;
+        }
+    case 2:
+        {
+         mostrarPedidos(cola_pedidos);
+         break;
+        }
+    case 0:
+        {
+            cout << "Saliendo" << endl;
+            break;
         }
 
-
     }
+    while (respuesta != 0);
 
     return 0;
 }
