@@ -43,3 +43,26 @@
 	"pizzeria.h"
 	"cola.h"
 
+1791835165 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\cola.cpp
+	"cola.h"
+	<iostream>
+
+1791835165 c:\users\dani viana\documents\github\pl1_eedd\pl1\cola.h
+	"pizzeria.h"
+
+1791902964 c:\users\dani viana\documents\github\pl1_eedd\pl1\pizzeria.h
+	<iostream>
+
+1791835165 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\main.cpp
+	<iostream>
+	<ctime>
+	"pizzeria.h"
+	"cola.h"
+
+1791902686 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\pizzeria.cpp
+	<iostream>
+	<ctime>
+	<iomanip>
+	"pizzeria.h"
+	"cola.h"
+

@@ -6,20 +6,21 @@
 #include "cola.h"
 
 
+
 using namespace std;
 
-pedido generarPedido(int contador_pedidos){
+pedido generarPedido(int contador_recibidos)
+{
 
-    pedido pedido_generado= {" ", 0, " ", " ", " ", false, " "};
+    pedido pedido_generado= {" ", 0, " ", " ", 0, false, " "};
     string tipos_pizza[]= {"Margarita", "Barbacoa", "Vegetal", "Hawaiana", "Romana", "Cuatro quesos"};
     string tamanos_pizza[]= {"Mediana", "Grande"};
-    string zonas_reparto[]= {"Norte", "Sur", "Este","Oeste"};
 
-    pedido_generado.id_pedido= "P" + to_string(10000 + contador_pedidos);
+    pedido_generado.id_pedido= "P" + to_string(10000 + contador_recibidos);
     pedido_generado.id_cliente= 100 + (rand() % 900);
     pedido_generado.tipo_pizza= tipos_pizza[rand()%6];
     pedido_generado.tamano= tamanos_pizza[rand()%2];
-    pedido_generado.zona_reparto= zonas_reparto[rand()%4];
+    pedido_generado.zona_reparto= rand()%ZONAS;
     int porcentaje= rand() % 100;
     pedido_generado.personalizada= (porcentaje < PROB_PERSONALIZACION);
     pedido_generado.estado= "Recibido";
@@ -27,8 +28,10 @@ pedido generarPedido(int contador_pedidos){
     return pedido_generado;
 }
 
-void mostrarPedidos(Cola &recibidos) {
-    if (recibidos.esVacia()) {
+void mostrarPedidos(Cola &recibidos)
+{
+    if (recibidos.esVacia())
+    {
         cout << "\nNo hay pedidos en la cola de recibidos.\n" << endl;
         return;
     }
@@ -50,7 +53,8 @@ void mostrarPedidos(Cola &recibidos) {
     cout << "-----------------------------------------------------------------" << endl;
 
 
-    while (!recibidos.esVacia()) {
+    while (!recibidos.esVacia())
+    {
         pedido p = recibidos.valorFrente();
         recibidos.desencolar();
 
@@ -66,11 +70,89 @@ void mostrarPedidos(Cola &recibidos) {
     }
 
 
-    while (!aux.esVacia()) {
+    while (!aux.esVacia())
+    {
         recibidos.encolar(aux.valorFrente());
         aux.desencolar();
     }
 }
+
+void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, int contador_recibidos)
+{
+
+    for (int i=0;!recibidos.esVacia() && i<N_PEDIDOS_PASO; i++)
+    {
+        pedido p= recibidos.valorFrente();
+        recibidos.desencolar();
+
+        if (p.personalizada==true)
+        {
+
+            prep_especial.encolar(p);
+
+        }
+
+        else
+        {
+
+            cocina.encolar(p);
+
+        }
+    }
+
+    for (int j=0; !prep_especial.esVacia() &&  j<N_PEDIDOS_PASO; j++){
+
+        pedido p= prep_especial.valorFrente();
+        prep_especial.desencolar();
+
+        cocina.encolar(p);
+
+    }
+
+    for (int k=0; !cocina.esVacia() && k<N_PEDIDOS_PASO; k++){
+
+        pedido p= cocina.valorFrente();
+        cocina.desencolar();
+
+        int zona= p.zona_reparto;
+
+        switch(zona){
+
+        case 0:
+            {
+            exp_norte.encolar(p);
+            break;
+        }
+
+        case 1:
+            {
+            exp_sur.encolar(p);
+            break;
+        }
+
+        case 2:
+            {
+            exp_este.encolar(p);
+            break;
+        }
+
+        case 3:
+            {
+            exp_oeste.encolar(p);
+            break;
+        }
+
+        }
+    }
+
+}
+
+
+
+
+
+
+
 
 
 

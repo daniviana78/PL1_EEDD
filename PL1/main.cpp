@@ -10,10 +10,16 @@ using namespace std;
 
 int main()
 {
-    Cola cola_pedidos;
+    Cola recibidos;
+    Cola prep_especial;
+    Cola cocina;
+    Cola exp_norte;
+    Cola exp_sur;
+    Cola exp_este;
+    Cola exp_oeste;
     srand(time(NULL));
     int respuesta;
-    int contador_pedidos=0;
+    int contador_recibidos=0;
 
 
     do{
@@ -35,15 +41,15 @@ int main()
                 cin >> n_pedidos;
 
                 for (int i=0; i<n_pedidos; i++){
-                    contador_pedidos++;
-                    pedido nuevo_pedido= generarPedido(contador_pedidos);
-                    cola_pedidos.encolar(nuevo_pedido);
+                    contador_recibidos++;
+                    pedido nuevo_pedido= generarPedido(contador_recibidos);
+                    recibidos.encolar(nuevo_pedido);
                 }
                 break;
             }
         case 2:
             {
-             mostrarPedidos(cola_pedidos);
+             mostrarPedidos(recibidos);
              break;
             }
         case 0:
