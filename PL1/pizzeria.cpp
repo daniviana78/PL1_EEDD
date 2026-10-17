@@ -28,18 +28,15 @@ pedido generarPedido(int contador_recibidos)
     return pedido_generado;
 }
 
-void mostrarPedidos(Cola &recibidos)
+void mostrarPedidos(Cola &c)
 {
-    if (recibidos.esVacia())
+    if (c.esVacia())
     {
-        cout << "\nNo hay pedidos en la cola de recibidos.\n" << endl;
+        cout << "\nNo hay pedidos en la cola.\n" << endl;
         return;
     }
 
     Cola aux;
-
-    cout << "\n=== RECIBIDOS ===" << endl;
-
 
     cout << setw(7) << "Pedido" << " | "
          << setw(7) << "Cliente" << " | "
@@ -53,10 +50,10 @@ void mostrarPedidos(Cola &recibidos)
     cout << "-----------------------------------------------------------------" << endl;
 
 
-    while (!recibidos.esVacia())
+    while (!c.esVacia())
     {
-        pedido p = recibidos.valorFrente();
-        recibidos.desencolar();
+        pedido p = c.valorFrente();
+        c.desencolar();
 
         cout << setw(7) << p.id_pedido << " | "
              << setw(7) << p.id_cliente << " | "
@@ -72,13 +69,58 @@ void mostrarPedidos(Cola &recibidos)
 
     while (!aux.esVacia())
     {
-        recibidos.encolar(aux.valorFrente());
+        c.encolar(aux.valorFrente());
         aux.desencolar();
     }
 }
 
-void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, int contador_recibidos)
+void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste)
 {
+    for (int k=0; !cocina.esVacia() && k<N_PEDIDOS_PASO; k++){
+
+            pedido p= cocina.valorFrente();
+            cocina.desencolar();
+
+            int zona= p.zona_reparto;
+
+            switch(zona){
+
+            case 0:
+                {
+                exp_norte.encolar(p);
+                break;
+            }
+
+            case 1:
+                {
+                exp_sur.encolar(p);
+                break;
+            }
+
+            case 2:
+                {
+                exp_este.encolar(p);
+                break;
+            }
+
+            case 3:
+                {
+                exp_oeste.encolar(p);
+                break;
+            }
+
+            }
+        }
+
+
+    for (int j=0; !prep_especial.esVacia() &&  j<N_PEDIDOS_PASO; j++){
+
+        pedido p= prep_especial.valorFrente();
+        prep_especial.desencolar();
+
+        cocina.encolar(p);
+
+    }
 
     for (int i=0;!recibidos.esVacia() && i<N_PEDIDOS_PASO; i++)
     {
@@ -100,50 +142,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
         }
     }
 
-    for (int j=0; !prep_especial.esVacia() &&  j<N_PEDIDOS_PASO; j++){
 
-        pedido p= prep_especial.valorFrente();
-        prep_especial.desencolar();
-
-        cocina.encolar(p);
-
-    }
-
-    for (int k=0; !cocina.esVacia() && k<N_PEDIDOS_PASO; k++){
-
-        pedido p= cocina.valorFrente();
-        cocina.desencolar();
-
-        int zona= p.zona_reparto;
-
-        switch(zona){
-
-        case 0:
-            {
-            exp_norte.encolar(p);
-            break;
-        }
-
-        case 1:
-            {
-            exp_sur.encolar(p);
-            break;
-        }
-
-        case 2:
-            {
-            exp_este.encolar(p);
-            break;
-        }
-
-        case 3:
-            {
-            exp_oeste.encolar(p);
-            break;
-        }
-
-        }
-    }
 
 }
 

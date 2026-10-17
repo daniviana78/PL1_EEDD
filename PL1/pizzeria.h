@@ -26,7 +26,7 @@ struct pedido
 class Cola;
 
 pedido generarPedido(int contador_pedidos);
-void mostrarPedidos(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste);
+void mostrarPedidos(Cola &c);
 void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste);
 
 
