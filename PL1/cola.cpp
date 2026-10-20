@@ -46,7 +46,7 @@ pedido Cola::valorFrente()
     if (primero == NULL) //Otra forma de comprobar si la cola está vacía
     {
         cout << "Error: Cola vacia al consultar el frente." << endl;
-        pedido vacio;
+        pedido vacio = {" ", 0, " ", " ", 0, false, " "};
         return vacio;
     }
     return primero->valor;

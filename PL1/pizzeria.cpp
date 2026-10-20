@@ -9,14 +9,14 @@
 
 using namespace std;
 
-pedido generarPedido(int contador_recibidos)
+Pedido generarPedido(int contador_recibidos)
 {
 
-    pedido pedido_generado= {" ", 0, " ", " ", 0, false, " "};
+    Pedido pedido_generado= {" ", 0, " ", " ", 0, false, " "};
     string tipos_pizza[]= {"Margarita", "Barbacoa", "Vegetal", "Hawaiana", "Romana", "Cuatro quesos"};
     string tamanos_pizza[]= {"Mediana", "Grande"};
 
-    pedido_generado.id_pedido= "P" + to_string(10000 + contador_recibidos);
+    pedido_generado.id_Pedido= "P" + to_string(10000 + contador_recibidos);
     pedido_generado.id_cliente= 100 + (rand() % 900);
     pedido_generado.tipo_pizza= tipos_pizza[rand()%6];
     pedido_generado.tamano= tamanos_pizza[rand()%2];
@@ -52,7 +52,7 @@ void mostrarPedidos(Cola &c)
 
     while (!c.esVacia())
     {
-        pedido p = c.valorFrente();
+        Pedido p = c.valorFrente();
         c.desencolar();
 
         cout << setw(7) << p.id_pedido << " | "
@@ -74,11 +74,87 @@ void mostrarPedidos(Cola &c)
     }
 }
 
-void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste)
+void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
 {
+
+    int num_pedidos_caja_norte= contar_elementos_pila(caja_norte);
+    int num_pedidos_caja_sur= contar_elementos_pila(caja_sur);
+    int num_pedidos_caja_este= contar_elementos_pila(caja_este);
+    int num_pedidos_caja_oeste= contar_elementos_pila(caja_oeste);
+
+    int enviadas_norte=0;
+    int enviadas_sur=0;
+    int enviadas_este=0;
+    int enviadas_oeste=0;
+    int total= 0;
+
+
+    while(num_pedidos_caja_norte>CAP_CAJA){
+        num_pedidos_caja_norte=num_pedidos_caja_norte-CAP_CAJA;
+        enviadas_norte++;
+    }
+
+    while(num_pedidos_caja_sur>CAP_CAJA){
+        num_pedidos_caja_sur=num_pedidos_caja_sur-CAP_CAJA;
+        enviadas_sur++;
+    }
+
+    while(num_pedidos_caja_este>CAP_CAJA){
+        num_pedidos_caja_este=num_pedidos_caja_este-CAP_CAJA;
+        enviadas_este++;
+    }
+
+    while(num_pedidos_caja_oeste>CAP_CAJA){
+        num_pedidos_caja_oeste=num_pedidos_caja_oeste-CAP_CAJA;
+        enviadas_oeste++;
+    }
+
+    cout << "=== CAJAS TERMICA ===" << endl;
+    cout << "Zona Norte -> activa: " << num_pedidos_caja_norte << "/6\t" << "enviadas: " << enviadas_norte << endl;
+    cout << "Zona Sur -> activa: " << num_pedidos_caja_sur << "/6\t" << "enviadas: " << enviadas_sur << endl;
+    cout << "Zona Este -> activa: " << num_pedidos_caja_este << "/6\t" << "enviadas: " << enviadas_este << endl;
+    cout << "Zona Oeste -> activa: " << num_pedidos_caja_oeste << "/6\t" << "enviadas: " << enviadas_oeste << endl;
+
+}
+
+
+void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int cont_caja_norte, int cont_caja_sur, int cont_caja_este, int cont_caja_oeste)
+{
+    for(int n=0; !exp_norte.esVacia() && n<N_PEDIDOS_PASO; n++){
+
+        Pedido p= exp_norte.valorFrente();
+        exp_norte.desencolar();
+
+        caja_norte.apilar(p);
+    }
+
+    for(int s=0; !exp_sur.esVacia() && s<N_PEDIDOS_PASO; s++){
+
+        Pedido p= exp_sur.valorFrente();
+        exp_sur.desencolar();
+
+        caja_sur.apilar(p);
+    }
+
+    for(int e=0; !exp_este.esVacia() && e<N_PEDIDOS_PASO; e++){
+
+        Pedido p= exp_este.valorFrente();
+        exp_este.desencolar();
+
+        caja_este.apilar(p);
+    }
+
+    for(int o=0; !exp_oeste.esVacia() && o<N_PEDIDOS_PASO; o++){
+
+        Pedido p= exp_oeste.valorFrente();
+        exp_oeste.desencolar();
+
+        caja_oeste.apilar(p);
+    }
+
     for (int k=0; !cocina.esVacia() && k<N_PEDIDOS_PASO; k++){
 
-            pedido p= cocina.valorFrente();
+            Pedido p= cocina.valorFrente();
             cocina.desencolar();
 
             int zona= p.zona_reparto;
@@ -115,7 +191,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
     for (int j=0; !prep_especial.esVacia() &&  j<N_PEDIDOS_PASO; j++){
 
-        pedido p= prep_especial.valorFrente();
+        Pedido p= prep_especial.valorFrente();
         prep_especial.desencolar();
 
         cocina.encolar(p);
@@ -124,7 +200,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
     for (int i=0;!recibidos.esVacia() && i<N_PEDIDOS_PASO; i++)
     {
-        pedido p= recibidos.valorFrente();
+        Pedido p= recibidos.valorFrente();
         recibidos.desencolar();
 
         if (p.personalizada==true)
@@ -146,6 +222,23 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
 }
 
+int contar_elementos_pila(Pila &p){
+
+    Pila aux;
+    int contador=0;
+    while(!p.esVacia()){
+        aux.apilar(p.valorCima());
+        p.desapilar();
+        contador++;
+    }
+
+    while(!aux.esVacia()){
+        p.apilar(aux.valorCima());
+        aux.desapilar();
+    }
+
+    return contador;
+}
 
 
 
