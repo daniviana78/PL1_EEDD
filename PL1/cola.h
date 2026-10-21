@@ -11,7 +11,7 @@ private:
     friend class Cola;
 public:
 // Declaración del constructor del Nodo
-    Nodo(pedido p, Nodo *sig = NULL)
+    Nodo(Pedido p, Nodo *sig = NULL)
     {
         valor = p;
         siguiente = sig;
@@ -27,9 +27,9 @@ private:
 public:
     Cola(); // Declaración de Constructor y Destructor
     ~Cola();
-    void encolar(pedido p); // Declaración de Operaciones Modificadoras
+    void encolar(Pedido p); // Declaración de Operaciones Modificadoras
     void desencolar();
-    pedido valorFrente(); // Declaración de Operaciones Observadoras
+    Pedidos valorFrente(); // Declaración de Operaciones Observadoras
     bool esVacia();
 };
 

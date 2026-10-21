@@ -17,6 +17,10 @@ int main()
     Cola exp_sur;
     Cola exp_este;
     Cola exp_oeste;
+    Pila caja_norte;
+    Pila caja_sur;
+    Pila caja_este;
+    Pila caja_oeste;
     srand(time(NULL));
     int respuesta;
     int contador_recibidos=0;
