@@ -35,18 +35,21 @@
 		</Compiler>
 		<Unit filename="cola.cpp" />
 		<Unit filename="cola.h">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option compile="1" />
+			<Option link="1" />
 		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="pila.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="pila.h">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option compile="1" />
+			<Option link="1" />
 		</Unit>
 		<Unit filename="pizzeria.cpp" />
 		<Unit filename="pizzeria.h">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option compile="1" />
+			<Option link="1" />
 		</Unit>
 		<Extensions />
 	</Project>

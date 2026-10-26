@@ -7,26 +7,26 @@
 
 using namespace std;
 
-class Nodo
+class NodoPila
 {
 private:
     Pedido valor;
-    Nodo *siguiente;
+    NodoPila *siguiente;
     friend class Pila;
 public:
-// Declaración del constructor del Nodo
-    Nodo(Pedido v, Nodo *sig = NULL)
+// Declaración del constructor del NodoPila
+    NodoPila(Pedido v, NodoPila *sig = NULL)
     {
         valor = v;
         siguiente = sig;
     }
 };
-typedef Nodo *pNodo;
+typedef NodoPila *pNodoPila;
 
 class Pila
 {
 private:
-    pNodo cima;
+    pNodoPila cima;
 public:
     Pila(); // Declaración de Constructor y Destructor
     ~Pila();

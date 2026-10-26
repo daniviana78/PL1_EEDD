@@ -1,26 +1,28 @@
 # depslib dependency file v1.0
-1792278960 source:c:\users\user\documents\github\pl1_eedd\pl1\main.cpp
+1793057298 source:c:\users\user\documents\github\pl1_eedd\pl1\main.cpp
 	<iostream>
 	<ctime>
 	"pizzeria.h"
 	"cola.h"
+	"pila.h"
 
-1792278960 c:\users\user\documents\github\pl1_eedd\pl1\pizzeria.h
+1793056186 c:\users\user\documents\github\pl1_eedd\pl1\pizzeria.h
 	<iostream>
 
-1791750020 c:\users\user\documents\github\pl1_eedd\pl1\cola.h
+1793056656 c:\users\user\documents\github\pl1_eedd\pl1\cola.h
 	"pizzeria.h"
 
-1791750032 source:c:\users\user\documents\github\pl1_eedd\pl1\cola.cpp
+1793056656 source:c:\users\user\documents\github\pl1_eedd\pl1\cola.cpp
 	"cola.h"
 	<iostream>
 
-1792278960 source:c:\users\user\documents\github\pl1_eedd\pl1\pizzeria.cpp
+1793057102 source:c:\users\user\documents\github\pl1_eedd\pl1\pizzeria.cpp
 	<iostream>
 	<ctime>
 	<iomanip>
 	"pizzeria.h"
 	"cola.h"
+	"pila.h"
 
 1791814236 source:c:\users\portatil\desktop\pl1_eedd\pl1\cola.cpp
 	"cola.h"
@@ -66,4 +68,18 @@
 	<iomanip>
 	"pizzeria.h"
 	"cola.h"
+
+1793056656 c:\users\user\documents\github\pl1_eedd\pl1\pila.h
+	<iostream>
+	"pizzeria.h"
+
+1793056656 source:c:\users\user\documents\github\pl1_eedd\pl1\cola.h
+	"pizzeria.h"
+
+1793056656 source:c:\users\user\documents\github\pl1_eedd\pl1\pila.h
+	<iostream>
+	"pizzeria.h"
+
+1793056186 source:c:\users\user\documents\github\pl1_eedd\pl1\pizzeria.h
+	<iostream>
 

@@ -19,20 +19,20 @@ Pila::~Pila()
 //Insertar elemento
 void Pila::apilar(Pedido v)
 {
-    pNodo nuevo; //Var aux para manipular el nuevo nodo
-    nuevo = new Nodo(v, cima); //Se crea un nodo nuevo
-    cima = nuevo; //El comienzo de la pila es el nuevo nodo
+    pNodoPila nuevo; //Var aux para manipular el nuevo NodoPila
+    nuevo = new NodoPila(v, cima); //Se crea un NodoPila nuevo
+    cima = nuevo; //El comienzo de la pila es el nuevo NodoPila
 }
 
 //Desapilar elemento
 void Pila::desapilar()
 {
     if (esVacia()) return; //Si la pila está vacía no devuelve nada
-    pNodo aux; //Var aux para manipular el nodo
+    pNodoPila aux; //Var aux para manipular el NodoPila
     aux = cima; //aux apunta al primer elemento de la pila
     cima = cima->siguiente; //Se asigna a pila toda la pila menos
 //el primer elemento
-    delete aux; //Se borra el nodo liberando memoria
+    delete aux; //Se borra el NodoPila liberando memoria
 }
 
 //Valor de la cima
@@ -41,7 +41,7 @@ Pedido Pila::valorCima()
     if (cima == NULL) //Otra forma de comprobar si la pila está vacía
     {
         cout << "Error: Pila vacia al consultar la cima." << endl;
-        pedido vacio= {" ", 0, " ", " ", 0, false, " "};
+        Pedido vacio= {" ", 0, " ", " ", 0, false, " "};
         return vacio;
     }
     return cima->valor;

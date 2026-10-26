@@ -11,7 +11,7 @@
 
 using namespace std;
 
-struct pedido
+struct Pedido
 {
 
     string id_pedido;
@@ -25,10 +25,14 @@ struct pedido
 };
 
 class Cola;
+class Pila;
 
-pedido generarPedido(int contador_pedidos);
+Pedido generarPedido(int contador_pedidos);
 void mostrarPedidos(Cola &c);
 void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste);
+void menuVerCajaActiva(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste);
+int contar_elementos_pila(Pila &p);
+void verCajaActiva(Pila &caja);
 
 
 #endif // PIZZERIA_H_INCLUDED

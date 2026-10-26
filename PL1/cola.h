@@ -3,33 +3,33 @@
 
 #include "pizzeria.h"
 
-class Nodo
+class NodoCola
 {
 private:
-    pedido valor;
-    Nodo *siguiente;
+    Pedido valor;
+    NodoCola *siguiente;
     friend class Cola;
 public:
-// Declaración del constructor del Nodo
-    Nodo(Pedido p, Nodo *sig = NULL)
+// Declaración del constructor del NodoCola
+    NodoCola(Pedido p, NodoCola *sig = NULL)
     {
         valor = p;
         siguiente = sig;
     }
 };
-typedef Nodo *pNodo;
+typedef NodoCola *pNodoCola;
 
 class Cola
 {
 private:
-    pNodo primero; // Puntero al primer elemento
-    pNodo ultimo; // Puntero al último elemento
+    pNodoCola primero; // Puntero al primer elemento
+    pNodoCola ultimo; // Puntero al último elemento
 public:
     Cola(); // Declaración de Constructor y Destructor
     ~Cola();
     void encolar(Pedido p); // Declaración de Operaciones Modificadoras
     void desencolar();
-    Pedidos valorFrente(); // Declaración de Operaciones Observadoras
+    Pedido valorFrente(); // Declaración de Operaciones Observadoras
     bool esVacia();
 };
 

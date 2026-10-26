@@ -1,10 +1,9 @@
 #include <iostream>
 #include <ctime>
 
-
 #include "pizzeria.h"
 #include "cola.h"
-
+#include "pila.h"
 
 using namespace std;
 
@@ -23,8 +22,7 @@ int main()
     Pila caja_oeste;
     srand(time(NULL));
     int respuesta;
-    int contador_recibidos=0;
-
+    int contador_recibidos = 0;
 
     do
     {
@@ -40,66 +38,59 @@ int main()
 
         switch(respuesta)
         {
-
-        case 1:
-        {
-
-            cout << "Introduzca el numero de pedidos que quiere generar: " << endl;
-            int n_pedidos;
-            cin >> n_pedidos;
-
-            for (int i=0; i<n_pedidos; i++)
+            case 1:
             {
-                contador_recibidos++;
-                pedido nuevo_pedido= generarPedido(contador_recibidos);
-                recibidos.encolar(nuevo_pedido);
+                cout << "Introduzca el numero de pedidos que quiere generar: " << endl;
+                int n_pedidos;
+                cin >> n_pedidos;
+
+                for (int i = 0; i < n_pedidos; i++)
+                {
+                    contador_recibidos++;
+                    Pedido nuevo_pedido = generarPedido(contador_recibidos);
+                    recibidos.encolar(nuevo_pedido);
+                }
+                break;
             }
-            break;
-        }
-        case 2:
-        {
-            avanzarPaso(recibidos, prep_especial, cocina, exp_norte, exp_sur, exp_este, exp_oeste);
-            break;
-        }
+            case 2:
+            {
+                avanzarPaso(recibidos, prep_especial, cocina, exp_norte, exp_sur, exp_este, exp_oeste, caja_norte, caja_sur, caja_este, caja_oeste);
+                break;
+            }
+            case 3:
+            {
+                cout << "\n=== RECIBIDOS ===" << endl;
+                mostrarPedidos(recibidos);
 
-        case 3:
-        {
-            cout << "\n=== RECIBIDOS ===" << endl;
-            mostrarPedidos(recibidos);
+                cout << "\n=== PREPARACION ESPECIAL ===" << endl;
+                mostrarPedidos(prep_especial);
 
-            cout << "\n=== PREPARACION ESPECIAL ===" << endl;
-            mostrarPedidos(prep_especial);
+                cout << "\n=== COCINA ===" << endl;
+                mostrarPedidos(cocina);
 
-            cout << "\n=== COCINA ===" << endl;
-            mostrarPedidos(cocina);
+                cout << "\n=== EXPEDICION NORTE ===" << endl;
+                mostrarPedidos(exp_norte);
 
-            cout << "\n=== EXPEDICION NORTE ===" << endl;
-            mostrarPedidos(exp_norte);
+                cout << "\n=== EXPEDICION SUR ===" << endl;
+                mostrarPedidos(exp_sur);
 
-            cout << "\n=== EXPEDICION SUR ===" << endl;
-            mostrarPedidos(exp_sur);
+                cout << "\n=== EXPEDICION ESTE ===" << endl;
+                mostrarPedidos(exp_este);
 
-            cout << "\n=== EXPEDICION ESTE ===" << endl;
-            mostrarPedidos(exp_este);
+                cout << "\n=== EXPEDICION OESTE ===" << endl;
+                mostrarPedidos(exp_oeste);
 
-            cout << "\n=== EXPEDICION OESTE ===" << endl;
-            mostrarPedidos(exp_oeste);
-
-
-            break;
-
-        }
-        case 4:
-
-            menuVerCajaActiva(caja_norte, caja_sur, caja_este, caja_oeste);
-
-            break;
-        }
-        case 0:
-        {
-            break;
-        }
-
+                break;
+            }
+            case 4:
+            {
+                menuVerCajaActiva(caja_norte, caja_sur, caja_este, caja_oeste);
+                break;
+            }
+            case 0:
+            {
+                break;
+            }
         }
     }
     while (respuesta != 0);

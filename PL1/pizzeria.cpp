@@ -4,6 +4,7 @@
 
 #include "pizzeria.h"
 #include "cola.h"
+#include "pila.h"
 
 
 
@@ -16,7 +17,7 @@ Pedido generarPedido(int contador_recibidos)
     string tipos_pizza[]= {"Margarita", "Barbacoa", "Vegetal", "Hawaiana", "Romana", "Cuatro quesos"};
     string tamanos_pizza[]= {"Mediana", "Grande"};
 
-    pedido_generado.id_Pedido= "P" + to_string(10000 + contador_recibidos);
+    pedido_generado.id_pedido= "P" + to_string(10000 + contador_recibidos);
     pedido_generado.id_cliente= 100 + (rand() % 900);
     pedido_generado.tipo_pizza= tipos_pizza[rand()%6];
     pedido_generado.tamano= tamanos_pizza[rand()%2];
@@ -86,7 +87,6 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
     int enviadas_sur=0;
     int enviadas_este=0;
     int enviadas_oeste=0;
-    int total= 0;
 
 
     while(num_pedidos_caja_norte>CAP_CAJA){
@@ -119,7 +119,7 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
 }
 
 
-void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int cont_caja_norte, int cont_caja_sur, int cont_caja_este, int cont_caja_oeste)
+void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
 {
     for(int n=0; !exp_norte.esVacia() && n<N_PEDIDOS_PASO; n++){
 
@@ -244,26 +244,28 @@ void menuVerCajaActiva(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &
 {
     int zona;
     cout << "\nSeleccione la zona a consultar:" << endl;
-    cout << "0. Norte" << endl;
-    cout << "1. Sur" << endl;
-    cout << "2. Este" << endl;
-    cout << "3. Oeste" << endl;
+    cout << "0 -> Norte" << endl;
+    cout << "1 -> Sur" << endl;
+    cout << "2 -> Este" << endl;
+    cout << "3 -> Oeste" << endl;
     cout << "Opcion: ";
     cin >> zona;
 
     switch (zona)
     {
         case 0:
-            verCajaActiva(caja_norte, "Norte");
+            cout << "=== CAJA ACTIVA: Zona Norte ===" << endl;
+            verCajaActiva(caja_norte);
             break;
         case 1:
-            verCajaActiva(caja_sur, "Sur");
+            cout << "=== CAJA ACTIVA: Zona Norte ===" << endl;
+            verCajaActiva(caja_sur);
             break;
         case 2:
-            verCajaActiva(caja_este, "Este");
+            verCajaActiva(caja_este);
             break;
         case 3:
-            verCajaActiva(caja_oeste, "Oeste");
+            verCajaActiva(caja_oeste);
             break;
         default:
             cout << "Zona no valida." << endl;
@@ -271,6 +273,41 @@ void menuVerCajaActiva(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &
     }
 }
 
+void verCajaActiva(Pila &caja){
+
+
+    cout << "(cima)" << endl;
+
+    if (caja.esVacia())
+        {
+            cout << "\nNo hay pedidos en la caja.\n" << endl;
+            return;
+        }
+
+    Pila aux;
+
+
+    while (!caja.esVacia())
+    {
+        Pedido p = caja.valorCima();
+        caja.desapilar();
+
+        cout << setw(7) << p.id_pedido << " - " << setw(17) << p.tipo_pizza << " | ";
+
+        aux.apilar(p);
+    }
+
+
+    while (!aux.esVacia())
+    {
+        caja.apilar(aux.valorCima());
+        aux.desapilar();
+    }
+
+    cout << "(fondo)" << endl;
+
+
+}
 
 
 
