@@ -33,6 +33,7 @@ int main()
         cout << "1- Generar N pedidos." << endl;
         cout << "2- Ejecutar un paso de simulación." << endl;
         cout << "3- Mostrar el estado del sistema." << endl;
+        cout << "4- Ver la caja activa de una zona." << endl;
         cout << "0- Salir." << endl;
 
         cin >> respuesta;
@@ -87,6 +88,12 @@ int main()
 
             break;
 
+        }
+        case 4:
+
+            menuVerCajaActiva(caja_norte, caja_sur, caja_este, caja_oeste);
+
+            break;
         }
         case 0:
         {
