@@ -114,7 +114,8 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
     cout << "Zona Sur -> activa: " << num_pedidos_caja_sur << "/6\t" << "enviadas: " << enviadas_sur << endl;
     cout << "Zona Este -> activa: " << num_pedidos_caja_este << "/6\t" << "enviadas: " << enviadas_este << endl;
     cout << "Zona Oeste -> activa: " << num_pedidos_caja_oeste << "/6\t" << "enviadas: " << enviadas_oeste << endl;
-
+    cout << "Total de cajas enviadas: " << enviadas_norte +enviadas_sur+enviadas_este+enviadas_oeste << endl;
+    cout << "Pedidos enviados o retirados: " << (enviadas_norte +enviadas_sur+enviadas_este+enviadas_oeste) * CAP_CAJA << endl;
 }
 
 
@@ -239,7 +240,36 @@ int contar_elementos_pila(Pila &p){
 
     return contador;
 }
+void menuVerCajaActiva(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
+{
+    int zona;
+    cout << "\nSeleccione la zona a consultar:" << endl;
+    cout << "0. Norte" << endl;
+    cout << "1. Sur" << endl;
+    cout << "2. Este" << endl;
+    cout << "3. Oeste" << endl;
+    cout << "Opcion: ";
+    cin >> zona;
 
+    switch (zona)
+    {
+        case 0:
+            verCajaActiva(caja_norte, "Norte");
+            break;
+        case 1:
+            verCajaActiva(caja_sur, "Sur");
+            break;
+        case 2:
+            verCajaActiva(caja_este, "Este");
+            break;
+        case 3:
+            verCajaActiva(caja_oeste, "Oeste");
+            break;
+        default:
+            cout << "Zona no valida." << endl;
+            break;
+    }
+}
 
 
 
