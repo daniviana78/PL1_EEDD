@@ -114,10 +114,10 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
     }
 
     cout << "=== CAJAS TERMICA ===" << endl;
-    cout << "Zona Norte -> activa: " << num_pedidos_caja_norte << "/6\t" << "enviadas: " << enviadas_norte << endl;
-    cout << "Zona Sur -> activa: " << num_pedidos_caja_sur << "/6\t" << "enviadas: " << enviadas_sur << endl;
-    cout << "Zona Este -> activa: " << num_pedidos_caja_este << "/6\t" << "enviadas: " << enviadas_este << endl;
-    cout << "Zona Oeste -> activa: " << num_pedidos_caja_oeste << "/6\t" << "enviadas: " << enviadas_oeste << endl;
+    cout << "Zona Norte -> activa: " << num_pedidos_caja_norte << "/6 \t" << "enviadas: " << enviadas_norte << endl;
+    cout << "Zona Sur -> activa: " << num_pedidos_caja_sur << "/6 \t" << "enviadas: " << enviadas_sur << endl;
+    cout << "Zona Este -> activa: " << num_pedidos_caja_este << "/6 \t" << "enviadas: " << enviadas_este << endl;
+    cout << "Zona Oeste -> activa: " << num_pedidos_caja_oeste << "/6 \t" << "enviadas: " << enviadas_oeste << endl;
     cout << "Total de cajas enviadas: " << enviadas_norte +enviadas_sur+enviadas_este+enviadas_oeste << endl;
     cout << "Pedidos enviados o retirados: " << (enviadas_norte +enviadas_sur+enviadas_este+enviadas_oeste) * CAP_CAJA + contador_retirados << endl;
     cout << "\n";
@@ -316,8 +316,6 @@ void verCajaActiva(Pila &caja)
 
         aux.apilar(p);
     }
-
-    cout << "\n";
 
     while (!aux.esVacia())
     {
