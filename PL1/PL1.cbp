@@ -37,19 +37,20 @@
 		<Unit filename="cola.h">
 			<Option compile="1" />
 			<Option link="1" />
-		</Unit>
-		<Unit filename="main.cpp" />
-		<Unit filename="pila.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="main.cpp" />
+		<Unit filename="pila.cpp" />
 		<Unit filename="pila.h">
 			<Option compile="1" />
 			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="pizzeria.cpp" />
 		<Unit filename="pizzeria.h">
 			<Option compile="1" />
 			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Extensions />
 	</Project>
