@@ -75,7 +75,7 @@ void mostrarPedidos(Cola &c)
     }
 }
 
-void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
+void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int contador_retirados)
 {
 
     int num_pedidos_caja_norte= contar_elementos_pila(caja_norte);
@@ -89,22 +89,26 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
     int enviadas_oeste=0;
 
 
-    while(num_pedidos_caja_norte>CAP_CAJA){
+    while(num_pedidos_caja_norte>CAP_CAJA)
+    {
         num_pedidos_caja_norte=num_pedidos_caja_norte-CAP_CAJA;
         enviadas_norte++;
     }
 
-    while(num_pedidos_caja_sur>CAP_CAJA){
+    while(num_pedidos_caja_sur>CAP_CAJA)
+    {
         num_pedidos_caja_sur=num_pedidos_caja_sur-CAP_CAJA;
         enviadas_sur++;
     }
 
-    while(num_pedidos_caja_este>CAP_CAJA){
+    while(num_pedidos_caja_este>CAP_CAJA)
+    {
         num_pedidos_caja_este=num_pedidos_caja_este-CAP_CAJA;
         enviadas_este++;
     }
 
-    while(num_pedidos_caja_oeste>CAP_CAJA){
+    while(num_pedidos_caja_oeste>CAP_CAJA)
+    {
         num_pedidos_caja_oeste=num_pedidos_caja_oeste-CAP_CAJA;
         enviadas_oeste++;
     }
@@ -115,13 +119,16 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
     cout << "Zona Este -> activa: " << num_pedidos_caja_este << "/6\t" << "enviadas: " << enviadas_este << endl;
     cout << "Zona Oeste -> activa: " << num_pedidos_caja_oeste << "/6\t" << "enviadas: " << enviadas_oeste << endl;
     cout << "Total de cajas enviadas: " << enviadas_norte +enviadas_sur+enviadas_este+enviadas_oeste << endl;
-    cout << "Pedidos enviados o retirados: " << (enviadas_norte +enviadas_sur+enviadas_este+enviadas_oeste) * CAP_CAJA << endl;
+    cout << "Pedidos enviados o retirados: " << (enviadas_norte +enviadas_sur+enviadas_este+enviadas_oeste) * CAP_CAJA + contador_retirados << endl;
+    cout << "\n";
+
 }
 
 
 void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
 {
-    for(int n=0; !exp_norte.esVacia() && n<N_PEDIDOS_PASO; n++){
+    for(int n=0; !exp_norte.esVacia() && n<N_PEDIDOS_PASO; n++)
+    {
 
         Pedido p= exp_norte.valorFrente();
         exp_norte.desencolar();
@@ -129,7 +136,8 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
         caja_norte.apilar(p);
     }
 
-    for(int s=0; !exp_sur.esVacia() && s<N_PEDIDOS_PASO; s++){
+    for(int s=0; !exp_sur.esVacia() && s<N_PEDIDOS_PASO; s++)
+    {
 
         Pedido p= exp_sur.valorFrente();
         exp_sur.desencolar();
@@ -137,7 +145,8 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
         caja_sur.apilar(p);
     }
 
-    for(int e=0; !exp_este.esVacia() && e<N_PEDIDOS_PASO; e++){
+    for(int e=0; !exp_este.esVacia() && e<N_PEDIDOS_PASO; e++)
+    {
 
         Pedido p= exp_este.valorFrente();
         exp_este.desencolar();
@@ -145,7 +154,8 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
         caja_este.apilar(p);
     }
 
-    for(int o=0; !exp_oeste.esVacia() && o<N_PEDIDOS_PASO; o++){
+    for(int o=0; !exp_oeste.esVacia() && o<N_PEDIDOS_PASO; o++)
+    {
 
         Pedido p= exp_oeste.valorFrente();
         exp_oeste.desencolar();
@@ -153,44 +163,47 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
         caja_oeste.apilar(p);
     }
 
-    for (int k=0; !cocina.esVacia() && k<N_PEDIDOS_PASO; k++){
+    for (int k=0; !cocina.esVacia() && k<N_PEDIDOS_PASO; k++)
+    {
 
-            Pedido p= cocina.valorFrente();
-            cocina.desencolar();
+        Pedido p= cocina.valorFrente();
+        cocina.desencolar();
 
-            int zona= p.zona_reparto;
+        int zona= p.zona_reparto;
 
-            switch(zona){
+        switch(zona)
+        {
 
-            case 0:
-                {
-                exp_norte.encolar(p);
-                break;
-            }
-
-            case 1:
-                {
-                exp_sur.encolar(p);
-                break;
-            }
-
-            case 2:
-                {
-                exp_este.encolar(p);
-                break;
-            }
-
-            case 3:
-                {
-                exp_oeste.encolar(p);
-                break;
-            }
-
-            }
+        case 0:
+        {
+            exp_norte.encolar(p);
+            break;
         }
 
+        case 1:
+        {
+            exp_sur.encolar(p);
+            break;
+        }
 
-    for (int j=0; !prep_especial.esVacia() &&  j<N_PEDIDOS_PASO; j++){
+        case 2:
+        {
+            exp_este.encolar(p);
+            break;
+        }
+
+        case 3:
+        {
+            exp_oeste.encolar(p);
+            break;
+        }
+
+        }
+    }
+
+
+    for (int j=0; !prep_especial.esVacia() &&  j<N_PEDIDOS_PASO; j++)
+    {
 
         Pedido p= prep_especial.valorFrente();
         prep_especial.desencolar();
@@ -199,7 +212,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
     }
 
-    for (int i=0;!recibidos.esVacia() && i<N_PEDIDOS_PASO; i++)
+    for (int i=0; !recibidos.esVacia() && i<N_PEDIDOS_PASO; i++)
     {
         Pedido p= recibidos.valorFrente();
         recibidos.desencolar();
@@ -223,17 +236,20 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
 }
 
-int contar_elementos_pila(Pila &p){
+int contar_elementos_pila(Pila &p)
+{
 
     Pila aux;
     int contador=0;
-    while(!p.esVacia()){
+    while(!p.esVacia())
+    {
         aux.apilar(p.valorCima());
         p.desapilar();
         contador++;
     }
 
-    while(!aux.esVacia()){
+    while(!aux.esVacia())
+    {
         p.apilar(aux.valorCima());
         aux.desapilar();
     }
@@ -250,39 +266,43 @@ void menuVerCajaActiva(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &
     cout << "3 -> Oeste" << endl;
     cout << "Opcion: ";
     cin >> zona;
+    cout << "\n";
 
     switch (zona)
     {
-        case 0:
-            cout << "=== CAJA ACTIVA: Zona Norte ===" << endl;
-            verCajaActiva(caja_norte);
-            break;
-        case 1:
-            cout << "=== CAJA ACTIVA: Zona Norte ===" << endl;
-            verCajaActiva(caja_sur);
-            break;
-        case 2:
-            verCajaActiva(caja_este);
-            break;
-        case 3:
-            verCajaActiva(caja_oeste);
-            break;
-        default:
-            cout << "Zona no valida." << endl;
-            break;
+    case 0:
+        cout << "=== CAJA ACTIVA: Zona Norte ===" << endl;
+        verCajaActiva(caja_norte);
+        break;
+    case 1:
+        cout << "=== CAJA ACTIVA: Zona Sur ===" << endl;
+        verCajaActiva(caja_sur);
+        break;
+    case 2:
+        cout << "=== CAJA ACTIVA: Zona Este ===" << endl;
+        verCajaActiva(caja_este);
+        break;
+    case 3:
+        cout << "=== CAJA ACTIVA: Zona Oeste ===" << endl;
+        verCajaActiva(caja_oeste);
+        break;
+    default:
+        cout << "Zona no valida." << endl;
+        break;
     }
 }
 
-void verCajaActiva(Pila &caja){
+void verCajaActiva(Pila &caja)
+{
 
 
     cout << "(cima)" << endl;
 
     if (caja.esVacia())
-        {
-            cout << "\nNo hay pedidos en la caja.\n" << endl;
-            return;
-        }
+    {
+        cout << "\nNo hay pedidos en la caja.\n" << endl;
+        return;
+    }
 
     Pila aux;
 
@@ -292,11 +312,12 @@ void verCajaActiva(Pila &caja){
         Pedido p = caja.valorCima();
         caja.desapilar();
 
-        cout << setw(7) << p.id_pedido << " - " << setw(17) << p.tipo_pizza << " | ";
+        cout << setw(7) << p.id_pedido << " - " << setw(9) << p.tipo_pizza << endl;
 
         aux.apilar(p);
     }
 
+    cout << "\n";
 
     while (!aux.esVacia())
     {
@@ -305,9 +326,75 @@ void verCajaActiva(Pila &caja){
     }
 
     cout << "(fondo)" << endl;
-
-
 }
+
+bool menuRetirarPedido (Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
+    {
+        int zona;
+        string identificador;
+        cout << "\nSeleccione la zona en la que se realizara la busqueda:" << endl;
+        cout << "0 -> Norte" << endl;
+        cout << "1 -> Sur" << endl;
+        cout << "2 -> Este" << endl;
+        cout << "3 -> Oeste" << endl;
+        cout << "Opcion: ";
+
+        cin >> zona;
+
+        cout << "Introduzca el identificador del pedido buscado: " << endl;
+
+        cin >> identificador;
+
+        switch (zona)
+        {
+        case 0:
+            return retirarPedido(caja_norte, identificador);
+            break;
+        case 1:
+            return retirarPedido(caja_sur, identificador);
+            break;
+        case 2:
+            return retirarPedido(caja_este, identificador);
+            break;
+        case 3:
+            return retirarPedido(caja_oeste, identificador);
+            break;
+        default:
+            cout << "Zona no valida." << endl;
+            return false;
+            break;
+        }
+    }
+
+ bool retirarPedido(Pila &caja, string identificador){
+
+     bool encontrado= false;
+     Pila aux;
+     while (!caja.esVacia()){
+         Pedido p= caja.valorCima();
+         if(p.id_pedido==identificador){
+            caja.desapilar();
+            encontrado= true;
+            break;
+         }
+         caja.desapilar();
+         aux.apilar(p);
+     }
+
+     while (!aux.esVacia()){
+        Pedido p= aux.valorCima();
+        aux.desapilar();
+        caja.apilar(p);
+     }
+
+     if (encontrado==false){
+        cout << "No se ha encontrado un pedido con ese identificador.\n" << endl;
+
+     }
+     return encontrado;
+ }
+
+
 
 
 

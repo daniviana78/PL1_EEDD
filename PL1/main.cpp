@@ -22,16 +22,18 @@ int main()
     Pila caja_oeste;
     srand(time(NULL));
     int respuesta;
-    int contador_recibidos = 0;
+    int contador_recibidos= 0;
+    int contador_retirados= 0;
 
     do
     {
         cout << "=== MENU ===" << endl;
         cout << "Elija alguna de las siguientes opciones: " << endl;
         cout << "1- Generar N pedidos." << endl;
-        cout << "2- Ejecutar un paso de simulación." << endl;
+        cout << "2- Ejecutar un paso de simulacion." << endl;
         cout << "3- Mostrar el estado del sistema." << endl;
         cout << "4- Ver la caja activa de una zona." << endl;
+        cout << "5- Retirar un pedido de una caja activa." << endl;
         cout << "0- Salir." << endl;
 
         cin >> respuesta;
@@ -80,11 +82,23 @@ int main()
                 cout << "\n=== EXPEDICION OESTE ===" << endl;
                 mostrarPedidos(exp_oeste);
 
+                cout << "\n";
+
+                mostrarCajas(caja_norte, caja_sur, caja_este, caja_oeste, contador_retirados);
+
                 break;
             }
             case 4:
             {
                 menuVerCajaActiva(caja_norte, caja_sur, caja_este, caja_oeste);
+                break;
+            }
+            case 5:
+            {
+                bool retirado= menuRetirarPedido(caja_norte, caja_sur, caja_este, caja_oeste);
+                if (retirado==true){
+                    contador_retirados++;
+                }
                 break;
             }
             case 0:
