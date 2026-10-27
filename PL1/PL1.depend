@@ -49,28 +49,30 @@
 	"cola.h"
 	"pila.h"
 
-1791835165 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\cola.cpp
+1793065418 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\cola.cpp
 	"cola.h"
 	<iostream>
 
-1791835165 c:\users\dani viana\documents\github\pl1_eedd\pl1\cola.h
+1793065418 c:\users\dani viana\documents\github\pl1_eedd\pl1\cola.h
 	"pizzeria.h"
 
-1792398103 c:\users\dani viana\documents\github\pl1_eedd\pl1\pizzeria.h
+1793116350 c:\users\dani viana\documents\github\pl1_eedd\pl1\pizzeria.h
 	<iostream>
 
-1792398103 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\main.cpp
+1793116317 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\main.cpp
 	<iostream>
 	<ctime>
 	"pizzeria.h"
 	"cola.h"
+	"pila.h"
 
-1792398103 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\pizzeria.cpp
+1793116489 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\pizzeria.cpp
 	<iostream>
 	<ctime>
 	<iomanip>
 	"pizzeria.h"
 	"cola.h"
+	"pila.h"
 
 1793056656 c:\users\user\documents\github\pl1_eedd\pl1\pila.h
 	<iostream>
@@ -95,6 +97,14 @@
 	"pizzeria.h"
 
 1793059218 source:c:\users\portatil\desktop\pl1_eedd\pl1\pila.cpp
+	"pila.h"
+	<iostream>
+
+1793065418 c:\users\dani viana\documents\github\pl1_eedd\pl1\pila.h
+	<iostream>
+	"pizzeria.h"
+
+1793065418 source:c:\users\dani viana\documents\github\pl1_eedd\pl1\pila.cpp
 	"pila.h"
 	<iostream>
 

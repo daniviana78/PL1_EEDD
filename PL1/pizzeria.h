@@ -29,13 +29,15 @@ class Pila;
 
 Pedido generarPedido(int contador_pedidos);
 void mostrarPedidos(Cola &c);
-void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int contador_retirados);
-void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste);
+void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int contador_retirados, int enviadas_norte, int enviadas_sur, int enviadas_este, int enviadas_oeste);
+void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int &enviadas_norte, int &enviadas_sur, int &enviadas_este, int &enviadas_oeste, Cola &finalizados);
 void menuVerCajaActiva(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste);
 int contar_elementos_pila(Pila &p);
 void verCajaActiva(Pila &caja);
-bool menuRetirarPedido (Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste);
-bool retirarPedido(Pila &caja, string identificador);
+bool menuRetirarPedido (Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, Cola &finalizados);
+bool retirarPedido(Pila &caja, string identificador, Cola &finalizados);
+void mostrarFinalizados(Cola &finalizados);
+
 
 
 #endif // PIZZERIA_H_INCLUDED

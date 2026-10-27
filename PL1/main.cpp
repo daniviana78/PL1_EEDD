@@ -20,10 +20,15 @@ int main()
     Pila caja_sur;
     Pila caja_este;
     Pila caja_oeste;
+    Cola finalizados;
     srand(time(NULL));
     int respuesta;
     int contador_recibidos= 0;
     int contador_retirados= 0;
+    int enviadas_norte=0;
+    int enviadas_sur=0;
+    int enviadas_este=0;
+    int enviadas_oeste=0;
 
     do
     {
@@ -34,7 +39,9 @@ int main()
         cout << "3- Mostrar el estado del sistema." << endl;
         cout << "4- Ver la caja activa de una zona." << endl;
         cout << "5- Retirar un pedido de una caja activa." << endl;
+        cout << "6- Mostrar pedidos finalizados." << endl;
         cout << "0- Salir." << endl;
+        cout << "Opcion: ";
 
         cin >> respuesta;
 
@@ -56,7 +63,7 @@ int main()
             }
             case 2:
             {
-                avanzarPaso(recibidos, prep_especial, cocina, exp_norte, exp_sur, exp_este, exp_oeste, caja_norte, caja_sur, caja_este, caja_oeste);
+                avanzarPaso(recibidos, prep_especial, cocina, exp_norte, exp_sur, exp_este, exp_oeste, caja_norte, caja_sur, caja_este, caja_oeste, enviadas_norte, enviadas_sur, enviadas_este, enviadas_oeste, finalizados);
                 break;
             }
             case 3:
@@ -84,7 +91,7 @@ int main()
 
                 cout << "\n";
 
-                mostrarCajas(caja_norte, caja_sur, caja_este, caja_oeste, contador_retirados);
+                mostrarCajas(caja_norte, caja_sur, caja_este, caja_oeste, contador_retirados, enviadas_norte, enviadas_sur, enviadas_este, enviadas_oeste);
 
                 break;
             }
@@ -95,10 +102,15 @@ int main()
             }
             case 5:
             {
-                bool retirado= menuRetirarPedido(caja_norte, caja_sur, caja_este, caja_oeste);
+                bool retirado= menuRetirarPedido(caja_norte, caja_sur, caja_este, caja_oeste, finalizados);
                 if (retirado==true){
                     contador_retirados++;
                 }
+                break;
+            }
+            case 6:
+            {
+                mostrarFinalizados(finalizados);
                 break;
             }
             case 0:

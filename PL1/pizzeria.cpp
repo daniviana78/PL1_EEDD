@@ -75,7 +75,7 @@ void mostrarPedidos(Cola &c)
     }
 }
 
-void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int contador_retirados)
+void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int contador_retirados, int enviadas_norte, int enviadas_sur, int enviadas_este, int enviadas_oeste)
 {
 
     int num_pedidos_caja_norte= contar_elementos_pila(caja_norte);
@@ -83,34 +83,25 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
     int num_pedidos_caja_este= contar_elementos_pila(caja_este);
     int num_pedidos_caja_oeste= contar_elementos_pila(caja_oeste);
 
-    int enviadas_norte=0;
-    int enviadas_sur=0;
-    int enviadas_este=0;
-    int enviadas_oeste=0;
-
 
     while(num_pedidos_caja_norte>CAP_CAJA)
     {
         num_pedidos_caja_norte=num_pedidos_caja_norte-CAP_CAJA;
-        enviadas_norte++;
     }
 
     while(num_pedidos_caja_sur>CAP_CAJA)
     {
         num_pedidos_caja_sur=num_pedidos_caja_sur-CAP_CAJA;
-        enviadas_sur++;
     }
 
     while(num_pedidos_caja_este>CAP_CAJA)
     {
         num_pedidos_caja_este=num_pedidos_caja_este-CAP_CAJA;
-        enviadas_este++;
     }
 
     while(num_pedidos_caja_oeste>CAP_CAJA)
     {
         num_pedidos_caja_oeste=num_pedidos_caja_oeste-CAP_CAJA;
-        enviadas_oeste++;
     }
 
     cout << "=== CAJAS TERMICA ===" << endl;
@@ -124,22 +115,97 @@ void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_
 
 }
 
+void mostrarFinalizados(Cola &finalizados){
 
-void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
+    if (finalizados.esVacia())
+    {
+        cout << "\nNo hay pedidos finalizados.\n" << endl;
+        return;
+    }
+
+    Cola aux;
+
+    cout << setw(7) << "Pedido" << " | "
+         << setw(7) << "Cliente" << " | "
+         << setw(13) << "Pizza" << " | "
+         << setw(7) << "Tamano" << " | "
+         << setw(5) << "Zona" << " | "
+         << setw(4) << "Pers" << " | "
+         << "Estado" << endl;
+
+
+    cout << "-----------------------------------------------------------------" << endl;
+
+
+    while (!finalizados.esVacia())
+    {
+        Pedido p = finalizados.valorFrente();
+        finalizados.desencolar();
+
+        cout << setw(7) << p.id_pedido << " | "
+             << setw(7) << p.id_cliente << " | "
+             << setw(13) << p.tipo_pizza << " | "
+             << setw(7) << p.tamano << " | "
+             << setw(5) << p.zona_reparto << " | "
+             << setw(4) << (p.personalizada ? "Si" : "No") << " | "
+             << p.estado << endl;
+
+        aux.encolar(p);
+    }
+
+
+    while (!aux.esVacia())
+    {
+        finalizados.encolar(aux.valorFrente());
+        aux.desencolar();
+    }
+}
+
+
+void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_norte, Cola &exp_sur, Cola &exp_este, Cola &exp_oeste, Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int &enviadas_norte, int &enviadas_sur, int &enviadas_este, int &enviadas_oeste, Cola &finalizados)
 {
     for(int n=0; !exp_norte.esVacia() && n<N_PEDIDOS_PASO; n++)
     {
 
+        if (contar_elementos_pila(caja_norte)>=CAP_CAJA){
+
+            while (!caja_norte.esVacia()){
+                Pedido p = caja_norte.valorCima();
+                p.estado="Enviado";
+                caja_norte.desapilar();
+                finalizados.encolar(p);
+            }
+            enviadas_norte++;
+
+        }
+
         Pedido p= exp_norte.valorFrente();
+        p.estado="Caja";
         exp_norte.desencolar();
 
+
         caja_norte.apilar(p);
+
     }
 
     for(int s=0; !exp_sur.esVacia() && s<N_PEDIDOS_PASO; s++)
     {
 
+        if (contar_elementos_pila(caja_sur)>=CAP_CAJA){
+
+            while (!caja_sur.esVacia()){
+                Pedido p= caja_sur.valorCima();
+                p.estado="Enviado";
+                caja_sur.desapilar();
+                finalizados.encolar(p);
+            }
+            enviadas_sur++;
+
+        }
+
+
         Pedido p= exp_sur.valorFrente();
+        p.estado="Caja";
         exp_sur.desencolar();
 
         caja_sur.apilar(p);
@@ -148,7 +214,20 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
     for(int e=0; !exp_este.esVacia() && e<N_PEDIDOS_PASO; e++)
     {
 
+        if (contar_elementos_pila(caja_este)>=CAP_CAJA){
+
+            while (!caja_este.esVacia()){
+                Pedido p = caja_este.valorCima();
+                p.estado="Enviado";
+                caja_este.desapilar();
+                finalizados.encolar(p);
+            }
+            enviadas_este++;
+
+        }
+
         Pedido p= exp_este.valorFrente();
+        p.estado="Caja";
         exp_este.desencolar();
 
         caja_este.apilar(p);
@@ -156,8 +235,20 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
     for(int o=0; !exp_oeste.esVacia() && o<N_PEDIDOS_PASO; o++)
     {
+        if (contar_elementos_pila(caja_oeste)>=CAP_CAJA){
+
+            while (!caja_oeste.esVacia()){
+                Pedido p = caja_oeste.valorCima();
+                p.estado="Enviado";
+                caja_oeste.desapilar();
+                finalizados.encolar(p);
+            }
+            enviadas_oeste++;
+
+        }
 
         Pedido p= exp_oeste.valorFrente();
+        p.estado="Caja";
         exp_oeste.desencolar();
 
         caja_oeste.apilar(p);
@@ -168,6 +259,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
         Pedido p= cocina.valorFrente();
         cocina.desencolar();
+        p.estado= "Expedicion";
 
         int zona= p.zona_reparto;
 
@@ -207,6 +299,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
         Pedido p= prep_especial.valorFrente();
         prep_especial.desencolar();
+        p.estado= "Cocina";
 
         cocina.encolar(p);
 
@@ -219,20 +312,18 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
         if (p.personalizada==true)
         {
-
+            p.estado= "Preparacion especial";
             prep_especial.encolar(p);
 
         }
 
         else
         {
-
+            p.estado= "Cocina";
             cocina.encolar(p);
 
         }
     }
-
-
 
 }
 
@@ -323,10 +414,10 @@ void verCajaActiva(Pila &caja)
         aux.desapilar();
     }
 
-    cout << "(fondo)" << endl;
+    cout << "(fondo)\n" << endl;
 }
 
-bool menuRetirarPedido (Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste)
+bool menuRetirarPedido (Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, Cola &finalizados)
     {
         int zona;
         string identificador;
@@ -346,16 +437,16 @@ bool menuRetirarPedido (Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila 
         switch (zona)
         {
         case 0:
-            return retirarPedido(caja_norte, identificador);
+            return retirarPedido(caja_norte, identificador, finalizados);
             break;
         case 1:
-            return retirarPedido(caja_sur, identificador);
+            return retirarPedido(caja_sur, identificador, finalizados);
             break;
         case 2:
-            return retirarPedido(caja_este, identificador);
+            return retirarPedido(caja_este, identificador, finalizados);
             break;
         case 3:
-            return retirarPedido(caja_oeste, identificador);
+            return retirarPedido(caja_oeste, identificador, finalizados);
             break;
         default:
             cout << "Zona no valida." << endl;
@@ -364,13 +455,15 @@ bool menuRetirarPedido (Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila 
         }
     }
 
- bool retirarPedido(Pila &caja, string identificador){
+ bool retirarPedido(Pila &caja, string identificador, Cola &finalizados){
 
      bool encontrado= false;
      Pila aux;
      while (!caja.esVacia()){
          Pedido p= caja.valorCima();
          if(p.id_pedido==identificador){
+            p.estado= "Retirado";
+            finalizados.encolar(p);
             caja.desapilar();
             encontrado= true;
             break;
