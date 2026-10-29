@@ -78,10 +78,10 @@ void mostrarPedidos(Cola &c)
 void mostrarCajas(Pila &caja_norte, Pila &caja_sur, Pila &caja_este, Pila &caja_oeste, int contador_retirados, int enviadas_norte, int enviadas_sur, int enviadas_este, int enviadas_oeste)
 {
 
-    int num_pedidos_caja_norte= contar_elementos_pila(caja_norte);
-    int num_pedidos_caja_sur= contar_elementos_pila(caja_sur);
-    int num_pedidos_caja_este= contar_elementos_pila(caja_este);
-    int num_pedidos_caja_oeste= contar_elementos_pila(caja_oeste);
+    int num_pedidos_caja_norte= contarElementosPila(caja_norte);
+    int num_pedidos_caja_sur= contarElementosPila(caja_sur);
+    int num_pedidos_caja_este= contarElementosPila(caja_este);
+    int num_pedidos_caja_oeste= contarElementosPila(caja_oeste);
 
 
     while(num_pedidos_caja_norte>CAP_CAJA)
@@ -167,7 +167,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
     for(int n=0; !exp_norte.esVacia() && n<N_PEDIDOS_PASO; n++)
     {
 
-        if (contar_elementos_pila(caja_norte)>=CAP_CAJA){
+        if (contarElementosPila(caja_norte)>=CAP_CAJA){
 
             while (!caja_norte.esVacia()){
                 Pedido p = caja_norte.valorCima();
@@ -191,7 +191,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
     for(int s=0; !exp_sur.esVacia() && s<N_PEDIDOS_PASO; s++)
     {
 
-        if (contar_elementos_pila(caja_sur)>=CAP_CAJA){
+        if (contarElementosPila(caja_sur)>=CAP_CAJA){
 
             while (!caja_sur.esVacia()){
                 Pedido p= caja_sur.valorCima();
@@ -214,7 +214,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
     for(int e=0; !exp_este.esVacia() && e<N_PEDIDOS_PASO; e++)
     {
 
-        if (contar_elementos_pila(caja_este)>=CAP_CAJA){
+        if (contarElementosPila(caja_este)>=CAP_CAJA){
 
             while (!caja_este.esVacia()){
                 Pedido p = caja_este.valorCima();
@@ -235,7 +235,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
     for(int o=0; !exp_oeste.esVacia() && o<N_PEDIDOS_PASO; o++)
     {
-        if (contar_elementos_pila(caja_oeste)>=CAP_CAJA){
+        if (contarElementosPila(caja_oeste)>=CAP_CAJA){
 
             while (!caja_oeste.esVacia()){
                 Pedido p = caja_oeste.valorCima();
@@ -327,7 +327,7 @@ void avanzarPaso(Cola &recibidos, Cola &prep_especial, Cola &cocina, Cola &exp_n
 
 }
 
-int contar_elementos_pila(Pila &p)
+int contarElementosPila(Pila &p)
 {
 
     Pila aux;
